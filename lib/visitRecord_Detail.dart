@@ -26,7 +26,7 @@ class VisitRageState extends State<VisitRecordPage> {
         title: Text(custormer_name),
         centerTitle: true,
       ),
-      body: null,
+      body: _visitRecord_Detail(),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.border_color, color: Colors.blue),
           onPressed: () {}),
