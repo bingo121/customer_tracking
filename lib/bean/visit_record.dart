@@ -8,13 +8,14 @@ class VisitRecord {
   String _visitContent;
   String _note;
   List<String> _visitPicture;
+  String _visitVideo;
 
   VisitRecord.fromList(int i) {
     visitRecordId = i;
-    visitTitle = "拜访标题 " + i.toString();
+    visitTitle = "拜访摘要 " + i.toString();
     visitStaff = "职员 " + i.toString();
     accompaniedStaff = "陪同职员 " + i.toString();
-    dateTime = DateTime.now().toString();
+    dateTime = DateTime.now().toString().substring(0,19);
     visitMethod = i % 2 == 0 ? "电话拜访" : "登门拜访";
     visitContent = "拜访内容 " + i.toString();
     _note = "备注 " + i.toString();
@@ -29,6 +30,12 @@ class VisitRecord {
 
   set visitPicture(List<String> value) {
     _visitPicture = value;
+  }
+
+  String get visitVideo => _visitVideo;
+
+  set visitVideo(String value) {
+    _visitVideo = value;
   }
 
   String get note => _note;

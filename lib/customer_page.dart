@@ -193,7 +193,8 @@ class CustomerPageState extends State<CustomerPage> {
             ? Icon(Icons.phone, color: Colors.blue)
             : Icon(Icons.card_travel, color: Colors.blue),
         title: Text(visitRecord.visitTitle),
-        trailing: Text(visitRecord.dateTime),
+        subtitle:Text(visitRecord.dateTime),
+        trailing:Text(visitRecord.visitStaff),
         onTap: () {
           Navigator.pushNamed(context, VisitRecordPage.routeName,
               arguments: <String, dynamic>{

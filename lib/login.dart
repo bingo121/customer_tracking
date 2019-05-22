@@ -28,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             new Container(
               padding: const EdgeInsets.all(16.0),
+              margin: EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 10.0),
               child: new Form(
                   key: loginKey,
                   child: new Column(
@@ -36,6 +37,7 @@ class _LoginPageState extends State<LoginPage> {
                       new TextFormField(
                         decoration: new InputDecoration(
                           labelText: "用户名",
+                          icon: Icon(Icons.person,color: Colors.blue,)
                         ),
                         validator: (value) {
                           return value.length == 0 ? "用户名不能为空" : null;
@@ -47,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                       new TextFormField(
                         decoration: new InputDecoration(
                           labelText: "密码",
+                          icon: Icon(Icons.lock,color: Colors.blue,)
                         ),
                         obscureText: true,
                         validator: (value) {
@@ -55,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                         onSaved: (value) {
                           password = value;
                         },
-                      )
+                      ),
                     ],
                   )),
             ),
@@ -70,17 +73,18 @@ class _LoginPageState extends State<LoginPage> {
                   new RaisedButton(
                     child: new Text(
                       "注册",
-                      style: TextStyle(fontSize: 18.0),
+                      style: TextStyle(fontSize: 18.0,color: Colors.white),
                     ),
                     onPressed: register,
-                    shape: CircleBorder(),
+                    color:Colors.blue,
                   ),
                   new RaisedButton(
                     child: new Text(
                       "登录",
-                      style: TextStyle(fontSize: 18.0),
+                      style: TextStyle(fontSize: 18.0,color: Colors.white),
                     ),
                     onPressed: login,
+                    color:Colors.blue
                   )
                 ],
               ),

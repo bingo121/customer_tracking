@@ -28,7 +28,7 @@ class VisitRageState extends State<VisitRecordPage> {
       ),
       body: _visitRecord_Detail(),
       floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.border_color, color: Colors.blue),
+          child: Icon(Icons.border_color, color: Colors.white),
           onPressed: () {}),
     );
   }
@@ -72,10 +72,11 @@ class VisitRageState extends State<VisitRecordPage> {
           Card(
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 new ListTile(title: new Text("拜访内容: ")),
                 Container(
-                    padding: EdgeInsets.fromLTRB(16.0, 0.0, 5.0, 10.0),
+                    padding: EdgeInsets.fromLTRB(16.0, 0.0, 5.0, 36.0),
                     child: new Text(
                       visitRecord.visitContent,
                       maxLines: 15,
@@ -117,7 +118,7 @@ class VisitRageState extends State<VisitRecordPage> {
                       padding: EdgeInsets.fromLTRB(16.0, 0.0, 10.0, 36.0),
                       child: new Text(
                         visitRecord.note,
-                        maxLines: 10,
+                        maxLines: 15,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.start,
                       ))
