@@ -26,7 +26,7 @@ class CustomerChangeState extends State<CustomerChange> {
     if (isAdd) {
       customer = new Customer();
     } else {
-      customer = customer = map["customer"];
+      customer = map["customer"];
       if (importantLevel == null && riskLevel == null) {
         importantLevel = customer.inportant_level;
         riskLevel = customer.risk_level;
@@ -195,10 +195,12 @@ class CustomerChangeState extends State<CustomerChange> {
                     Padding(
                         padding: edgeInsets,
                         child: TextFormField(
+                            enabled: false,
                             initialValue: isAdd
                                 ? DateTime.now().toString().substring(0, 19)
                                 : customer.dateTime,
                             decoration: InputDecoration(
+                                helperText: "由系统生成",
                                 isDense: true,
                                 icon: Icon(Icons.date_range,
                                     color: Colors.blue, size: 24.0),
@@ -215,19 +217,19 @@ class CustomerChangeState extends State<CustomerChange> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       new ListTile(
-                          title: new Text("客户照片",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16.0)),
-                          trailing: IconButton(
-                              icon: Icon(Icons.arrow_forward_ios),
-                              onPressed: null)),
+                        title: new Text("客户照片",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16.0)),
+                      ),
                       new Container(
-                        padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 15.0),
-                        child: isAdd
-                            ? Icon(Icons.add,size: 200.0,color: Colors.grey) : new FadeInImage.assetNetwork(
-                                placeholder: "images/loading.gif",
-                                image: customer.customer_pictures[0],
-                                fit: BoxFit.cover),
+                        margin: EdgeInsets.fromLTRB(4.0, 4.0, 4.0, 10.0),
+                        child: new Wrap(
+                          spacing: 8.0,
+                          runSpacing: 6.0,
+                          children:
+                              _buildPictureList(customer.customer_pictures),
+                        ),
                       )
                     ],
                   ),
@@ -253,5 +255,43 @@ class CustomerChangeState extends State<CustomerChange> {
                     margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0))
               ],
             )));
+  }
+
+  List<Widget> _buildPictureList(List<String> pictures) {
+    List<Widget> result;
+    if (pictures != null) {
+      result = pictures.map<Widget>((url) {
+        return Stack(
+          children: <Widget>[
+            new Container(
+              height: 150.0,
+              width: 150.0,
+              child: new FadeInImage.assetNetwork(
+                  placeholder: "images/loading.gif",
+                  image: url,
+                  fit: BoxFit.cover),
+            ),
+
+            Positioned(
+                top: 0.0,
+                right: 0.0,
+                child: InkWell(child: IconButton(
+                    icon: Icon(Icons.cancel),
+                    color: Colors.blue,
+                    onPressed: () {})))
+          ],
+        );
+      }).toList();
+    } else {
+      result = [];
+    }
+
+    result.add(new Container(
+        height: 150.0,
+        width: 150.0,
+        color: Colors.blue[50],
+        child: IconButton(
+            icon: Icon(Icons.camera_alt), color:Colors.grey,iconSize: 140.0, onPressed: () {})));
+    return result;
   }
 }

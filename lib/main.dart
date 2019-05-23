@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:customer_tracking/customer_page.dart';
 import 'package:customer_tracking/visitRecord_Detail.dart';
 import 'package:customer_tracking/customer_change.dart';
+import 'package:customer_tracking/visitRecord_change.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
         AppPage.routeName:(context)=>AppPage(),
         CustomerPage.routeName:(context)=>CustomerPage(),
         VisitRecordPage.routeName:(context)=>VisitRecordPage(),
-        CustomerChange.routeName:(context) =>CustomerChange()
+        CustomerChange.routeName:(context) =>CustomerChange(),
+        VisitRecordChange.routeName:(context) =>VisitRecordChange(),
       },
       home: LoginPage(),
     );

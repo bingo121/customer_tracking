@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:customer_tracking/bean/visit_record.dart';
 import 'package:customer_tracking/visitRecord_Detail.dart';
 import 'package:customer_tracking/customer_change.dart';
+import 'package:customer_tracking/visitRecord_change.dart';
 
 class CustomerPage extends StatefulWidget {
   static const routeName = "/CustomerPage";
@@ -114,18 +115,29 @@ class CustomerPageState extends State<CustomerPage> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     new ListTile(
-                        title: new Text("客户照片",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16.0)),
-                        trailing: IconButton(
-                            icon: Icon(Icons.arrow_forward_ios),
-                            onPressed: null)),
+                      title: new Text(
+                        "客户照片",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16.0),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                     new Container(
-                      padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 15.0),
-                      child: new FadeInImage.assetNetwork(
-                          placeholder: "images/loading.gif",
-                          image: customer.customer_pictures[0],
-                          fit: BoxFit.cover),
+                      margin: EdgeInsets.fromLTRB(4.0, 4.0, 4.0, 10.0),
+                      child: new Wrap(
+                        spacing: 8.0,
+                        runSpacing: 6.0,
+                        children: customer.customer_pictures.map<Widget>((url) {
+                          return new Container(
+                            height: 150.0,
+                            width:150.0 ,
+                            child: new FadeInImage.assetNetwork(
+                                placeholder: "images/loading.gif",
+                                image: url,
+                                fit: BoxFit.cover),
+                          );
+                        }).toList(),
+                      ),
                     )
                   ],
                 ),
@@ -161,7 +173,8 @@ class CustomerPageState extends State<CustomerPage> {
                   child: IconButton(
                       icon: isAttention
                           ? Icon(Icons.star, color: Colors.red[600], size: 36.0)
-                          : Icon(Icons.star_border, color: Colors.blue, size: 36.0),
+                          : Icon(Icons.star_border,
+                              color: Colors.blue, size: 36.0),
                       onPressed: () {
                         setState(() {
                           isAttention = !isAttention;
@@ -193,8 +206,8 @@ class CustomerPageState extends State<CustomerPage> {
             ? Icon(Icons.phone, color: Colors.blue)
             : Icon(Icons.card_travel, color: Colors.blue),
         title: Text(visitRecord.visitTitle),
-        subtitle:Text(visitRecord.dateTime),
-        trailing:Text(visitRecord.visitStaff),
+        subtitle: Text(visitRecord.dateTime),
+        trailing: Text(visitRecord.visitStaff),
         onTap: () {
           Navigator.pushNamed(context, VisitRecordPage.routeName,
               arguments: <String, dynamic>{
@@ -216,7 +229,10 @@ class CustomerPageState extends State<CustomerPage> {
             child: IconButton(
                 iconSize: 36.0,
                 icon: Icon(Icons.add, color: Colors.blue),
-                onPressed: () {}))
+                onPressed: () {
+                  Navigator.pushNamed(context, VisitRecordChange.routeName,
+                      arguments: <String, dynamic>{"isAdd": true});
+                }))
       ],
     );
   }

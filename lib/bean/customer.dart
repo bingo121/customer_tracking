@@ -1,3 +1,4 @@
+
 class Customer {
   int _customerId;
   String _customerName;
@@ -23,9 +24,13 @@ class Customer {
     inportant_level = i%5+1;
     risk_level = "中";
     staff_size = "1"+i.toString()+"人";
-    customer_pictures =<String>["http://111.231.1.131:80/images/person"+(i%10).toString()+".jpg"];
+    customer_pictures = List<String>.generate(i%4+1, (index) {
+      return "http://111.231.1.131:80/images/person" +
+          ((i + index) % 10).toString() +
+          ".jpg";
+    });
     dateTime = DateTime.now().toString().substring(0,19);
-    note = "是明确一体化在线平台建设管理的推进机制。国务院办公厅负责牵头推进国家政务服务平台建设，推动建设一体化在线平台标准规范体系、安全保障体系和运营管理体系；省、自治区、直辖市人民政府和国务院有关部门负责本地区、本部门政务服务平台建设、安全保障和运营管理 备注 "+i.toString();
+    note = "Flutter是谷歌的移动UI框架，可以快速在iOS和Android上构建高质量的原生用户界面。 Flutter可以与现有的代码一起工作。在全世界，Flutter正在被越来越多的开发者和组织使用，并且Flutter是完全免费、开源的。 备注 "+i.toString();
   }
 
   String get note => _note;

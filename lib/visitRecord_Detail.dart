@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:customer_tracking/bean/visit_record.dart';
+import 'package:customer_tracking/visitRecord_change.dart';
 
 class VisitRecordPage extends StatefulWidget {
   static const routeName = "/VisitRecordPage";
@@ -29,7 +30,13 @@ class VisitRageState extends State<VisitRecordPage> {
       body: _visitRecord_Detail(),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.border_color, color: Colors.white),
-          onPressed: () {}),
+          onPressed: () {
+            Navigator.pushNamed(context, VisitRecordChange.routeName,
+                arguments: <String, dynamic>{
+                  "isAdd": false,
+                  "visit_record": visitRecord
+                });
+          }),
     );
   }
 
@@ -92,17 +99,17 @@ class VisitRageState extends State<VisitRecordPage> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 new ListTile(
-                    title: new Text("拜访照片",
+                    title: new Text("拜访照片/视频",
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16.0)),
-                    trailing: IconButton(
-                        icon: Icon(Icons.arrow_forward_ios), onPressed: null)),
+                            fontWeight: FontWeight.bold, fontSize: 16.0))),
                 new Container(
-                  padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 15.0),
-                  child: new FadeInImage.assetNetwork(
-                      placeholder: "images/loading.gif",
-                      image: visitRecord.visitPicture[0],
-                      fit: BoxFit.cover),
+                  margin: EdgeInsets.fromLTRB(4.0, 4.0, 4.0, 10.0),
+                  child: new Wrap(
+                    spacing: 8.0,
+                    runSpacing: 6.0,
+                    children: buildPictureList(),
+                  ),
                 )
               ],
             ),
@@ -128,5 +135,40 @@ class VisitRageState extends State<VisitRecordPage> {
         ],
       ),
     );
+  }
+
+  List<Widget> buildPictureList() {
+    List<Widget> result;
+
+    result = visitRecord.visitPicture.map<Widget>((url) {
+      return new Container(
+        height: 150.0,
+        width: 150.0,
+        child: new FadeInImage.assetNetwork(
+            placeholder: "images/loading.gif", image: url, fit: BoxFit.cover),
+      );
+    }).toList();
+
+    for (String video_url in visitRecord.visitVideo) {
+      result.add(Stack(
+        alignment: AlignmentDirectional.center,
+        children: <Widget>[
+          new Container(
+            height: 150.0,
+            width: 150.0,
+            child: new FadeInImage.assetNetwork(
+                placeholder: "images/loading.gif",
+                image: video_url.split(",")[1],
+                fit: BoxFit.cover),
+          ),
+          IconButton(
+              iconSize: 60.0,
+              icon: Icon(Icons.play_circle_outline),
+              color: Colors.blue,
+              onPressed: () {})
+        ],
+      ));
+    }
+    return result;
   }
 }

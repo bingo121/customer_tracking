@@ -11,6 +11,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   GlobalKey<FormState> loginKey = new GlobalKey<FormState>();
+  GlobalKey<ScaffoldState> snackbarKey = new GlobalKey<ScaffoldState>();
+
   String userName;
   String password;
 
@@ -18,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(
+      key: snackbarKey,
       appBar: new AppBar(
         title: new Text("登录"),
         centerTitle: true,
@@ -36,9 +39,11 @@ class _LoginPageState extends State<LoginPage> {
                     children: <Widget>[
                       new TextFormField(
                         decoration: new InputDecoration(
-                          labelText: "用户名",
-                          icon: Icon(Icons.person,color: Colors.blue,)
-                        ),
+                            labelText: "用户名",
+                            icon: Icon(
+                              Icons.person,
+                              color: Colors.blue,
+                            )),
                         validator: (value) {
                           return value.length == 0 ? "用户名不能为空" : null;
                         },
@@ -48,9 +53,11 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       new TextFormField(
                         decoration: new InputDecoration(
-                          labelText: "密码",
-                          icon: Icon(Icons.lock,color: Colors.blue,)
-                        ),
+                            labelText: "密码",
+                            icon: Icon(
+                              Icons.lock,
+                              color: Colors.blue,
+                            )),
                         obscureText: true,
                         validator: (value) {
                           return value.length < 6 ? "密码长度不到6位" : null;
@@ -73,19 +80,18 @@ class _LoginPageState extends State<LoginPage> {
                   new RaisedButton(
                     child: new Text(
                       "注册",
-                      style: TextStyle(fontSize: 18.0,color: Colors.white),
+                      style: TextStyle(fontSize: 18.0, color: Colors.white),
                     ),
                     onPressed: register,
-                    color:Colors.blue,
+                    color: Colors.blue,
                   ),
                   new RaisedButton(
-                    child: new Text(
-                      "登录",
-                      style: TextStyle(fontSize: 18.0,color: Colors.white),
-                    ),
-                    onPressed: login,
-                    color:Colors.blue
-                  )
+                      child: new Text(
+                        "登录",
+                        style: TextStyle(fontSize: 18.0, color: Colors.white),
+                      ),
+                      onPressed: login,
+                      color: Colors.blue)
                 ],
               ),
             )
@@ -99,10 +105,14 @@ class _LoginPageState extends State<LoginPage> {
     var loginForm = loginKey.currentState;
     if (loginForm.validate()) {
       loginForm.save();
-
-      User user = new User(1, userName, password, userName + '@qq.com',
-          'dda67s5f7as7d65fa86f679sd9xs67');
-      Navigator.pushNamed(context, AppPage.routeName, arguments: user);
+      if (userName == "sxbingo" && password == "1234567") {
+        User user = new User(1, userName, password, userName + '@qq.com',
+            'dda67s5f7as7d65fa86f679sd9xs67');
+        Navigator.pushNamed(context, AppPage.routeName, arguments: user);
+      }else{
+        snackbarKey.currentState.removeCurrentSnackBar();
+        snackbarKey.currentState.showSnackBar(SnackBar(content: Text("该用户不存在！",textAlign: TextAlign.center)));
+      }
     }
   }
 

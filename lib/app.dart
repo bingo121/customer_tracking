@@ -84,7 +84,7 @@ class AppState extends State<AppPage> {
           ),
           ListTile(
             leading: new Icon(Icons.power_settings_new),
-            title: new Text("注销"),
+            title: new Text("退出"),
           )
         ],
       ),
